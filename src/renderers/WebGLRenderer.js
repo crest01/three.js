@@ -12,7 +12,7 @@ import {
 	FloatType,
 	UnsignedByteType,
 	LinearEncoding,
-	LinearToneMapping,
+	NoToneMapping,
 	BackSide
 } from '../constants.js';
 import { MathUtils } from '../math/MathUtils.js';
@@ -107,7 +107,7 @@ function WebGLRenderer( parameters ) {
 
 	// tone mapping
 
-	this.toneMapping = LinearToneMapping;
+	this.toneMapping = NoToneMapping;
 	this.toneMappingExposure = 1.0;
 	this.toneMappingWhitePoint = 1.0;
 
@@ -741,6 +741,12 @@ function WebGLRenderer( parameters ) {
 		if ( material.morphTargets || material.morphNormals ) {
 
 			morphtargets.update( object, geometry, material, program );
+
+			updateBuffers = true;
+
+		}
+
+		if ( object.isInstancedMesh === true ) {
 
 			updateBuffers = true;
 
@@ -1516,7 +1522,7 @@ function WebGLRenderer( parameters ) {
 
 			materialProperties.program = program;
 			materialProperties.uniforms = parameters.uniforms;
-			materialProperties.outputEncoding = _this.outputEncoding;
+			materialProperties.outputEncoding = parameters.outputEncoding;
 			material.program = program;
 
 		}
@@ -1614,6 +1620,7 @@ function WebGLRenderer( parameters ) {
 
 		var fog = scene.fog;
 		var environment = material.isMeshStandardMaterial ? scene.environment : null;
+		var encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : _currentRenderTarget.texture.encoding;
 
 		var materialProperties = properties.get( material );
 		var lights = currentRenderState.state.lights;
@@ -1661,7 +1668,7 @@ function WebGLRenderer( parameters ) {
 
 				initMaterial( material, scene, object );
 
-			} else if ( materialProperties.outputEncoding !== _this.outputEncoding ) {
+			} else if ( materialProperties.outputEncoding !== encoding ) {
 
 				initMaterial( material, scene, object );
 

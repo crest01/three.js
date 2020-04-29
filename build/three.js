@@ -553,33 +553,34 @@
 			var c3_1 = cos( ( c - a ) / 2 );
 			var s3_1 = sin( ( c - a ) / 2 );
 
-			if ( order === 'XYX' ) {
+			switch ( order ) {
 
-				q.set( c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13 );
+				case 'XYX':
+					q.set( c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13 );
+					break;
 
-			} else if ( order === 'YZY' ) {
+				case 'YZY':
+					q.set( s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13 );
+					break;
 
-				q.set( s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13 );
+				case 'ZXZ':
+					q.set( s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13 );
+					break;
 
-			} else if ( order === 'ZXZ' ) {
+				case 'XZX':
+					q.set( c2 * s13, s2 * s3_1, s2 * c3_1, c2 * c13 );
+					break;
 
-				q.set( s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13 );
+				case 'YXY':
+					q.set( s2 * c3_1, c2 * s13, s2 * s3_1, c2 * c13 );
+					break;
 
-			} else if ( order === 'XZX' ) {
+				case 'ZYZ':
+					q.set( s2 * s3_1, s2 * c3_1, c2 * s13, c2 * c13 );
+					break;
 
-				q.set( c2 * s13, s2 * s3_1, s2 * c3_1, c2 * c13 );
-
-			} else if ( order === 'YXY' ) {
-
-				q.set( s2 * c3_1, c2 * s13, s2 * s3_1, c2 * c13 );
-
-			} else if ( order === 'ZYZ' ) {
-
-				q.set( s2 * s3_1, s2 * c3_1, c2 * s13, c2 * c13 );
-
-			} else {
-
-				console.warn( 'THREE.MathUtils: .setQuaternionFromProperEuler() encountered an unknown order.' );
+				default:
+					console.warn( 'THREE.MathUtils: .setQuaternionFromProperEuler() encountered an unknown order: ' + order );
 
 			}
 
@@ -1753,6 +1754,7 @@
 							uv.x = uv.x - Math.floor( uv.x );
 
 						}
+
 						break;
 
 				}
@@ -1784,6 +1786,7 @@
 							uv.y = uv.y - Math.floor( uv.y );
 
 						}
+
 						break;
 
 				}
@@ -2842,47 +2845,52 @@
 			var s2 = sin( y / 2 );
 			var s3 = sin( z / 2 );
 
-			if ( order === 'XYZ' ) {
+			switch ( order ) {
 
-				this._x = s1 * c2 * c3 + c1 * s2 * s3;
-				this._y = c1 * s2 * c3 - s1 * c2 * s3;
-				this._z = c1 * c2 * s3 + s1 * s2 * c3;
-				this._w = c1 * c2 * c3 - s1 * s2 * s3;
+				case 'XYZ':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
 
-			} else if ( order === 'YXZ' ) {
+				case 'YXZ':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
 
-				this._x = s1 * c2 * c3 + c1 * s2 * s3;
-				this._y = c1 * s2 * c3 - s1 * c2 * s3;
-				this._z = c1 * c2 * s3 - s1 * s2 * c3;
-				this._w = c1 * c2 * c3 + s1 * s2 * s3;
+				case 'ZXY':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
 
-			} else if ( order === 'ZXY' ) {
+				case 'ZYX':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
 
-				this._x = s1 * c2 * c3 - c1 * s2 * s3;
-				this._y = c1 * s2 * c3 + s1 * c2 * s3;
-				this._z = c1 * c2 * s3 + s1 * s2 * c3;
-				this._w = c1 * c2 * c3 - s1 * s2 * s3;
+				case 'YZX':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
 
-			} else if ( order === 'ZYX' ) {
+				case 'XZY':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
 
-				this._x = s1 * c2 * c3 - c1 * s2 * s3;
-				this._y = c1 * s2 * c3 + s1 * c2 * s3;
-				this._z = c1 * c2 * s3 - s1 * s2 * c3;
-				this._w = c1 * c2 * c3 + s1 * s2 * s3;
-
-			} else if ( order === 'YZX' ) {
-
-				this._x = s1 * c2 * c3 + c1 * s2 * s3;
-				this._y = c1 * s2 * c3 + s1 * c2 * s3;
-				this._z = c1 * c2 * s3 - s1 * s2 * c3;
-				this._w = c1 * c2 * c3 - s1 * s2 * s3;
-
-			} else if ( order === 'XZY' ) {
-
-				this._x = s1 * c2 * c3 - c1 * s2 * s3;
-				this._y = c1 * s2 * c3 - s1 * c2 * s3;
-				this._z = c1 * c2 * s3 + s1 * s2 * c3;
-				this._w = c1 * c2 * c3 + s1 * s2 * s3;
+				default:
+					console.warn( 'THREE.Quaternion: .setFromEuler() encountered an unknown order: ' + order );
 
 			}
 
@@ -5022,105 +5030,119 @@
 
 			order = order || this._order;
 
-			if ( order === 'XYZ' ) {
+			switch ( order ) {
 
-				this._y = Math.asin( clamp( m13, - 1, 1 ) );
+				case 'XYZ':
 
-				if ( Math.abs( m13 ) < 0.9999999 ) {
+					this._y = Math.asin( clamp( m13, - 1, 1 ) );
 
-					this._x = Math.atan2( - m23, m33 );
-					this._z = Math.atan2( - m12, m11 );
+					if ( Math.abs( m13 ) < 0.9999999 ) {
 
-				} else {
+						this._x = Math.atan2( - m23, m33 );
+						this._z = Math.atan2( - m12, m11 );
 
-					this._x = Math.atan2( m32, m22 );
-					this._z = 0;
+					} else {
 
-				}
+						this._x = Math.atan2( m32, m22 );
+						this._z = 0;
 
-			} else if ( order === 'YXZ' ) {
+					}
 
-				this._x = Math.asin( - clamp( m23, - 1, 1 ) );
+					break;
 
-				if ( Math.abs( m23 ) < 0.9999999 ) {
+				case 'YXZ':
 
-					this._y = Math.atan2( m13, m33 );
-					this._z = Math.atan2( m21, m22 );
+					this._x = Math.asin( - clamp( m23, - 1, 1 ) );
 
-				} else {
+					if ( Math.abs( m23 ) < 0.9999999 ) {
 
-					this._y = Math.atan2( - m31, m11 );
-					this._z = 0;
+						this._y = Math.atan2( m13, m33 );
+						this._z = Math.atan2( m21, m22 );
 
-				}
+					} else {
 
-			} else if ( order === 'ZXY' ) {
+						this._y = Math.atan2( - m31, m11 );
+						this._z = 0;
 
-				this._x = Math.asin( clamp( m32, - 1, 1 ) );
+					}
 
-				if ( Math.abs( m32 ) < 0.9999999 ) {
+					break;
 
-					this._y = Math.atan2( - m31, m33 );
-					this._z = Math.atan2( - m12, m22 );
+				case 'ZXY':
 
-				} else {
+					this._x = Math.asin( clamp( m32, - 1, 1 ) );
 
-					this._y = 0;
-					this._z = Math.atan2( m21, m11 );
+					if ( Math.abs( m32 ) < 0.9999999 ) {
 
-				}
+						this._y = Math.atan2( - m31, m33 );
+						this._z = Math.atan2( - m12, m22 );
 
-			} else if ( order === 'ZYX' ) {
+					} else {
 
-				this._y = Math.asin( - clamp( m31, - 1, 1 ) );
+						this._y = 0;
+						this._z = Math.atan2( m21, m11 );
 
-				if ( Math.abs( m31 ) < 0.9999999 ) {
+					}
 
-					this._x = Math.atan2( m32, m33 );
-					this._z = Math.atan2( m21, m11 );
+					break;
 
-				} else {
+				case 'ZYX':
 
-					this._x = 0;
-					this._z = Math.atan2( - m12, m22 );
+					this._y = Math.asin( - clamp( m31, - 1, 1 ) );
 
-				}
+					if ( Math.abs( m31 ) < 0.9999999 ) {
 
-			} else if ( order === 'YZX' ) {
+						this._x = Math.atan2( m32, m33 );
+						this._z = Math.atan2( m21, m11 );
 
-				this._z = Math.asin( clamp( m21, - 1, 1 ) );
+					} else {
 
-				if ( Math.abs( m21 ) < 0.9999999 ) {
+						this._x = 0;
+						this._z = Math.atan2( - m12, m22 );
 
-					this._x = Math.atan2( - m23, m22 );
-					this._y = Math.atan2( - m31, m11 );
+					}
 
-				} else {
+					break;
 
-					this._x = 0;
-					this._y = Math.atan2( m13, m33 );
+				case 'YZX':
 
-				}
+					this._z = Math.asin( clamp( m21, - 1, 1 ) );
 
-			} else if ( order === 'XZY' ) {
+					if ( Math.abs( m21 ) < 0.9999999 ) {
 
-				this._z = Math.asin( - clamp( m12, - 1, 1 ) );
+						this._x = Math.atan2( - m23, m22 );
+						this._y = Math.atan2( - m31, m11 );
 
-				if ( Math.abs( m12 ) < 0.9999999 ) {
+					} else {
 
-					this._x = Math.atan2( m32, m22 );
-					this._y = Math.atan2( m13, m11 );
+						this._x = 0;
+						this._y = Math.atan2( m13, m33 );
 
-				} else {
+					}
 
-					this._x = Math.atan2( - m23, m33 );
-					this._y = 0;
+					break;
 
-				}
+				case 'XZY':
 
-			} else {
+					this._z = Math.asin( - clamp( m12, - 1, 1 ) );
 
-				console.warn( 'THREE.Euler: .setFromRotationMatrix() given unsupported order: ' + order );
+					if ( Math.abs( m12 ) < 0.9999999 ) {
+
+						this._x = Math.atan2( m32, m22 );
+						this._y = Math.atan2( m13, m11 );
+
+					} else {
+
+						this._x = Math.atan2( - m23, m33 );
+						this._y = 0;
+
+					}
+
+					break;
+
+				default:
+
+					console.warn( 'THREE.Euler: .setFromRotationMatrix() encountered an unknown order: ' + order );
 
 			}
 
@@ -6065,6 +6087,7 @@
 					values.push( data );
 
 				}
+
 				return values;
 
 			}
@@ -11632,6 +11655,14 @@
 
 		}
 
+		if ( object.isSkinnedMesh ) {
+
+			object.boneTransform( a, _vA );
+			object.boneTransform( b, _vB );
+			object.boneTransform( c, _vC );
+
+		}
+
 		var intersection = checkIntersection( object, material, raycaster, ray, _vA, _vB, _vC, _intersectionPoint );
 
 		if ( intersection ) {
@@ -15281,8 +15312,8 @@
 				UniformsLib.lights,
 				{
 					emissive: { value: new Color( 0x000000 ) },
-					roughness: { value: 0.5 },
-					metalness: { value: 0.5 },
+					roughness: { value: 1.0 },
+					metalness: { value: 0.0 },
 					envMapIntensity: { value: 1 } // temporary
 				}
 			] ),
@@ -20008,8 +20039,6 @@
 
 				if ( _shadowMapSize.x > maxTextureSize || _shadowMapSize.y > maxTextureSize ) {
 
-					console.warn( 'THREE.WebGLShadowMap:', light, 'has shadow exceeding max texture size, reducing' );
-
 					if ( _shadowMapSize.x > maxTextureSize ) {
 
 						_viewportSize.x = Math.floor( maxTextureSize / shadowFrameExtents.x );
@@ -23048,7 +23077,9 @@
 		cameraR.layers.enable( 2 );
 		cameraR.viewport = new Vector4();
 
-		var cameraVR = new ArrayCamera( [ cameraL, cameraR ] );
+		var cameras = [ cameraL, cameraR ];
+
+		var cameraVR = new ArrayCamera();
 		cameraVR.layers.enable( 1 );
 		cameraVR.layers.enable( 2 );
 
@@ -23144,10 +23175,9 @@
 
 			framebufferScaleFactor = value;
 
-			// Warn if function is used while presenting
-			if ( scope.isPresenting == true ) {
+			if ( scope.isPresenting === true ) {
 
-				console.warn( "WebXRManager: Cannot change framebuffer scale while presenting VR content" );
+				console.warn( 'THREE.WebXRManager: Cannot change framebuffer scale while presenting.' );
 
 			}
 
@@ -23156,6 +23186,12 @@
 		this.setReferenceSpaceType = function ( value ) {
 
 			referenceSpaceType = value;
+
+			if ( scope.isPresenting === true ) {
+
+				console.warn( 'THREE.WebXRManager: Cannot change reference space type while presenting.' );
+
+			}
 
 		};
 
@@ -23375,7 +23411,19 @@
 
 			}
 
-			setProjectionFromUnion( cameraVR, cameraL, cameraR );
+			// update projection matrix for proper view frustum culling
+
+			if ( cameras.length === 2 ) {
+
+				setProjectionFromUnion( cameraVR, cameraL, cameraR );
+
+			} else {
+
+				// assume single camera setup (AR)
+
+				cameraVR.projectionMatrix.copy( cameraL.projectionMatrix );
+
+			}
 
 			return cameraVR;
 
@@ -23396,12 +23444,23 @@
 
 				renderer.setFramebuffer( baseLayer.framebuffer );
 
+				var cameraVRNeedsUpdate = false;
+
+				// check if it's necessary to rebuild cameraVR's camera list
+
+				if ( views.length !== cameraVR.cameras.length ) {
+
+					cameraVR.cameras.length = 0;
+					cameraVRNeedsUpdate = true;
+
+				}
+
 				for ( var i = 0; i < views.length; i ++ ) {
 
 					var view = views[ i ];
 					var viewport = baseLayer.getViewport( view );
 
-					var camera = cameraVR.cameras[ i ];
+					var camera = cameras[ i ];
 					camera.matrix.fromArray( view.transform.matrix );
 					camera.projectionMatrix.fromArray( view.projectionMatrix );
 					camera.viewport.set( viewport.x, viewport.y, viewport.width, viewport.height );
@@ -23409,6 +23468,12 @@
 					if ( i === 0 ) {
 
 						cameraVR.matrix.copy( camera.matrix );
+
+					}
+
+					if ( cameraVRNeedsUpdate === true ) {
+
+						cameraVR.cameras.push( camera );
 
 					}
 
@@ -23516,7 +23581,7 @@
 
 		// tone mapping
 
-		this.toneMapping = LinearToneMapping;
+		this.toneMapping = NoToneMapping;
 		this.toneMappingExposure = 1.0;
 		this.toneMappingWhitePoint = 1.0;
 
@@ -24150,6 +24215,12 @@
 			if ( material.morphTargets || material.morphNormals ) {
 
 				morphtargets.update( object, geometry, material, program );
+
+				updateBuffers = true;
+
+			}
+
+			if ( object.isInstancedMesh === true ) {
 
 				updateBuffers = true;
 
@@ -24925,7 +24996,7 @@
 
 				materialProperties.program = program;
 				materialProperties.uniforms = parameters.uniforms;
-				materialProperties.outputEncoding = _this.outputEncoding;
+				materialProperties.outputEncoding = parameters.outputEncoding;
 				material.program = program;
 
 			}
@@ -25023,6 +25094,7 @@
 
 			var fog = scene.fog;
 			var environment = material.isMeshStandardMaterial ? scene.environment : null;
+			var encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : _currentRenderTarget.texture.encoding;
 
 			var materialProperties = properties.get( material );
 			var lights = currentRenderState.state.lights;
@@ -25070,7 +25142,7 @@
 
 					initMaterial( material, scene, object );
 
-				} else if ( materialProperties.outputEncoding !== _this.outputEncoding ) {
+				} else if ( materialProperties.outputEncoding !== encoding ) {
 
 					initMaterial( material, scene, object );
 
@@ -27089,7 +27161,51 @@
 
 			return new this.constructor( this.geometry, this.material ).copy( this );
 
-		}
+		},
+
+		boneTransform: ( function () {
+
+			var basePosition = new Vector3();
+
+			var skinIndex = new Vector4();
+			var skinWeight = new Vector4();
+
+			var vector = new Vector3();
+			var matrix = new Matrix4();
+
+			return function ( index, target ) {
+
+				var skeleton = this.skeleton;
+				var geometry = this.geometry;
+
+				skinIndex.fromBufferAttribute( geometry.attributes.skinIndex, index );
+				skinWeight.fromBufferAttribute( geometry.attributes.skinWeight, index );
+
+				basePosition.fromBufferAttribute( geometry.attributes.position, index ).applyMatrix4( this.bindMatrix );
+
+				target.set( 0, 0, 0 );
+
+				for ( var i = 0; i < 4; i ++ ) {
+
+					var weight = skinWeight.getComponent( i );
+
+					if ( weight !== 0 ) {
+
+						var boneIndex = skinIndex.getComponent( i );
+
+						matrix.multiplyMatrices( skeleton.bones[ boneIndex ].matrixWorld, skeleton.boneInverses[ boneIndex ] );
+
+						target.addScaledVector( vector.copy( basePosition ).applyMatrix4( matrix ), weight );
+
+					}
+
+				}
+
+				return target.applyMatrix4( this.bindMatrixInverse );
+
+			};
+
+		}() )
 
 	} );
 
@@ -27360,16 +27476,16 @@
 
 				// process the result of raycast
 
-				if ( _instanceIntersects.length > 0 ) {
+				for ( var i = 0, l = _instanceIntersects.length; i < l; i ++ ) {
 
-					_instanceIntersects[ 0 ].instanceId = instanceId;
-					_instanceIntersects[ 0 ].object = this;
-
-					intersects.push( _instanceIntersects[ 0 ] );
-
-					_instanceIntersects.length = 0;
+					var intersect = _instanceIntersects[ i ];
+					intersect.instanceId = instanceId;
+					intersect.object = this;
+					intersects.push( intersect );
 
 				}
+
+				_instanceIntersects.length = 0;
 
 			}
 
@@ -35878,6 +35994,18 @@
 
 		load: function ( /* url, onLoad, onProgress, onError */ ) {},
 
+		loadAsync: function ( url, onProgress ) {
+
+			var scope = this;
+
+			return new Promise( function ( resolve, reject ) {
+
+				scope.load( url, resolve, onProgress, reject );
+
+			} );
+
+		},
+
 		parse: function ( /* data */ ) {},
 
 		setCrossOrigin: function ( crossOrigin ) {
@@ -36446,6 +36574,7 @@
 					texture.format = texData.format;
 
 				}
+
 				if ( texData.type !== undefined ) {
 
 					texture.type = texData.type;
@@ -41449,6 +41578,7 @@
 							edgeHighPt = inPolygon[ p ]; edgeDy = - edgeDy;
 
 						}
+
 						if ( ( inPt.y < edgeLowPt.y ) || ( inPt.y > edgeHighPt.y ) ) 		{ continue; }
 
 						if ( inPt.y === edgeLowPt.y ) {
@@ -41588,6 +41718,7 @@
 							}
 
 						}
+
 						if ( hole_unassigned ) {
 
 							betterShapeHoles[ sIdx ].push( ho );
@@ -41598,6 +41729,7 @@
 
 				}
 				// console.log("ambiguous: ", ambiguous);
+
 				if ( toChange.length > 0 ) {
 
 					// console.log("to change: ", toChange);
@@ -47858,9 +47990,9 @@
 				magFilter: NearestFilter,
 				minFilter: NearestFilter,
 				generateMipmaps: false,
-				type: equirectangular ? equirectangular.type : UnsignedByteType,
-				format: equirectangular ? equirectangular.format : RGBEFormat,
-				encoding: equirectangular ? equirectangular.encoding : RGBEEncoding,
+				type: UnsignedByteType,
+				format: RGBEFormat,
+				encoding: _isLDR( equirectangular ) ? equirectangular.encoding : RGBEEncoding,
 				depthBuffer: false,
 				stencilBuffer: false
 			};
@@ -47986,7 +48118,7 @@
 			}
 
 			uniforms[ 'inputEncoding' ].value = ENCODINGS[ texture.encoding ];
-			uniforms[ 'outputEncoding' ].value = ENCODINGS[ texture.encoding ];
+			uniforms[ 'outputEncoding' ].value = ENCODINGS[ cubeUVRenderTarget.texture.encoding ];
 
 			_setViewport( cubeUVRenderTarget, 0, 0, 3 * SIZE_MAX, 2 * SIZE_MAX );
 
@@ -48130,6 +48262,14 @@
 		}
 
 	};
+
+	function _isLDR( texture ) {
+
+		if ( texture === undefined || texture.type !== UnsignedByteType ) { return false; }
+
+		return texture.encoding === LinearEncoding || texture.encoding === sRGBEncoding || texture.encoding === GammaEncoding;
+
+	}
 
 	function _createPlanes() {
 
@@ -48364,6 +48504,7 @@
 			return materials.slice();
 
 		};
+
 		return materials;
 
 	}
@@ -49550,6 +49691,7 @@
 				console.warn( 'THREE.BufferGeometry: .addDrawCall() no longer supports indexOffset.' );
 
 			}
+
 			console.warn( 'THREE.BufferGeometry: .addDrawCall() is now .addGroup().' );
 			this.addGroup( start, count );
 
